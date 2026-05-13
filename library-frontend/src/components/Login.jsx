@@ -3,18 +3,21 @@ import { useMutation } from '@apollo/client/react'
 import { LOGIN } from '../queries'
 
 
-const LoginForm = ({ setToken, show }) => {
+const LoginForm = ({ setToken, show, setPage }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const [ login ] = useMutation(LOGIN, {
     onCompleted: (data) => {
       const token = data.login.value
       setToken(token)
       localStorage.setItem('library-user-token', token)
+      setErrorMessage(null)
+      setPage('authors')
     },
     onError: (error) => {
-      console.log(error.message)
+      setErrorMessage('login failed')
     }
   })
 
@@ -28,15 +31,22 @@ const LoginForm = ({ setToken, show }) => {
 
   return (
     <div>
+      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <form onSubmit={submit}>
         <div>
-          username <input
+          <label htmlFor='username'>username</label>
+          <input
+            id='username'
+            name='username'
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
         <div>
-          password <input
+          <label htmlFor='password'>password</label>
+          <input
+            id='password'
+            name='password'
             type='password'
             value={password}
             onChange={({ target }) => setPassword(target.value)}

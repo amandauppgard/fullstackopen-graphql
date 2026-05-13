@@ -47,15 +47,15 @@ const App = () => {
         )}
       </div>
 
-      <Authors show={page === 'authors'} authors={authors.data?.allAuthors} />
+      <Authors show={page === 'authors'} authors={authors.data?.allAuthors} token={token} />
 
       <Books show={page === 'books'} books={books.data?.allBooks} />
 
       <NewBook show={page === 'add'} />
 
-      <Login show={page === 'login'} setToken={setToken} />
+      <Login show={page === 'login'} setToken={setToken} setPage={setPage} />
 
-      <Recommend show={page === 'recommend'} books={books.data?.allBooks} />
+      <Recommend show={page === 'recommend'} books={books.data?.allBooks} token={token} />
     </div>
   )
 }

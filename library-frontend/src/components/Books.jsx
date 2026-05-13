@@ -22,6 +22,7 @@ const Books = (props) => {
   return (
     <div>
       <h2>books</h2>
+      {genre && <p>in genre <b>{genre}</b></p>}
 
       <table>
         <tbody>
